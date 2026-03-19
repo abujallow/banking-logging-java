@@ -5,10 +5,12 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+import java.io.File;
 
 /**
  * @author Justin Del Vecchio
  * @author Jon Mrowczynski
+ * @author abu jallow
  */
 public class BankAccount {
 	
@@ -26,7 +28,10 @@ public class BankAccount {
 		this.balance = balance;
 		logger = Logger.getLogger(accountNumber);
 		try {
-			// TODO: Programmatically create the parent directory `logs` if it doesn't already exist.
+			File logDir = new File("logs");
+			if (!logDir.exists()) {
+				logDir.mkdir();
+			}
 			FileHandler handler = new FileHandler("logs/" + accountNumber + ".log");
 			handler.setFormatter(new SimpleFormatter());
 			logger.addHandler(handler);
